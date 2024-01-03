@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { decode } from 'html-entities';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Preview = ({ post }) => {
 	const [preview, setPreview] = useState(null);
@@ -25,14 +26,12 @@ const Preview = ({ post }) => {
 		getContentPreview(post.contentHTML);
 	}, [post.contentHTML]);
 
-	/* useEffect(() => {
-		getContentPreview(post.content);
-	}, [post.content]); */
-
 	return (
 		<section>
-			<h2>{post.title}</h2>
-			<p>{preview}</p>
+			<Link to={post._id}>
+				<h2>{post.title}</h2>
+				<p>{preview}</p>
+			</Link>
 		</section>
 	);
 };
