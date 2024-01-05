@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import Preview from '../components/Preview';
 import { act } from 'react-dom/test-utils';
+import { BrowserRouter } from 'react-router-dom';
 
 describe('Preview', () => {
 	it('should render entire contents of short posts', async () => {
@@ -13,7 +14,11 @@ describe('Preview', () => {
 		};
 
 		act(() => {
-			render(<Preview post={shortPost} />);
+			render(
+				<BrowserRouter>
+					<Preview post={shortPost} />
+				</BrowserRouter>,
+			);
 		});
 
 		await waitFor(() => {
@@ -39,7 +44,11 @@ describe('Preview', () => {
 		};
 
 		act(() => {
-			render(<Preview post={longPost} />);
+			render(
+				<BrowserRouter>
+					<Preview post={longPost} />
+				</BrowserRouter>,
+			);
 		});
 
 		await waitFor(() => {
