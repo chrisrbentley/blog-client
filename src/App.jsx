@@ -1,6 +1,6 @@
 import './App.css';
 import Header from './components/Header';
-import getPosts from './api/posts';
+import { getPosts } from './api/posts';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Preview from './components/Preview';
