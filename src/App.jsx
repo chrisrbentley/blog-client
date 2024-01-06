@@ -12,7 +12,8 @@ function App() {
 	useEffect(() => {
 		const fetchData = async () => {
 			const posts = await getPosts();
-			setPosts(posts);
+			const reversed = posts.reverse();
+			setPosts(reversed);
 		};
 		fetchData();
 	}, []);
