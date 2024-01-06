@@ -11,3 +11,10 @@ body {
 	flex-flow: column nowrap;
 	align-items: center;
 }
+
+.loadingContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh; /* Optional: set the height of the container to the viewport height */
+}
