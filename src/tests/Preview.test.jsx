@@ -56,4 +56,27 @@ describe('Preview', () => {
 			expect(preview).toBeInTheDocument();
 		});
 	});
+
+	it('should render formatted date', async () => {
+		const post = {
+			author: 'John Doe',
+			title: 'My cool react blog',
+			contentHTML:
+				'&lt;p&gt;vel risus commodo est velit egestas dui id ornare arcu odio ut sem nulla pharetra diam sit amet&lt;&#x2F;p&gt;',
+			publishedAt: '2023-12-26T19:00:32.731Z',
+		};
+
+		act(() => {
+			render(
+				<BrowserRouter>
+					<Preview post={post} />
+				</BrowserRouter>,
+			);
+		});
+
+		await waitFor(() => {
+			const date = screen.getByText('12/26/2023');
+			expect(date).toBeInTheDocument();
+		});
+	});
 });

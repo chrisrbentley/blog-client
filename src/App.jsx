@@ -20,14 +20,16 @@ function App() {
 		<>
 			<Header />
 			<main>
-				{posts.map((post) => {
-					return (
-						<Preview
-							key={post._id}
-							post={post}
-						/>
-					);
-				})}
+				<div className="previewContainer">
+					{posts.map((post) => {
+						return (
+							<Preview
+								key={post._id}
+								post={post}
+							/>
+						);
+					})}
+				</div>
 			</main>
 		</>
 	);

@@ -1,0 +1,35 @@
+.preview {
+	border-bottom: solid 0.5px rgb(141, 140, 140);
+	width: 80%;
+}
+
+.preview:last-child {
+	border-bottom: none;
+}
+
+.preview > a {
+	color: #242424;
+	text-decoration: none;
+}
+
+.preview > a > h2 {
+	font-size: 18px;
+	margin-bottom: 0;
+	margin-top: 7px;
+}
+
+.preview > a > p {
+	display: none;
+	margin-top: 5px;
+}
+
+.date {
+	margin-bottom: 0;
+	color: #6b6b6b;
+}
+
+@media (min-width: 600px) {
+	.preview > a > p {
+		display: block;
+	}
+}
