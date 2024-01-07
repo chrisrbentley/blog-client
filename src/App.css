@@ -16,5 +16,5 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 100vh; /* Optional: set the height of the container to the viewport height */
+	height: 100vh;
 }
