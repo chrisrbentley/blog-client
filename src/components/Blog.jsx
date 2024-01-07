@@ -3,22 +3,28 @@ import { useParams } from 'react-router-dom';
 import { decode } from 'html-entities';
 import ReactLoading from 'react-loading';
 import styles from './Blog.module.css';
+import formatDate from '../util/formatDate';
 
 // eslint-disable-next-line react/prop-types
 const Blog = ({ getPost }) => {
 	const { id } = useParams();
 	const [post, setPost] = useState(null);
+	const [formattedDate, setFormattedDate] = useState('');
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const posts = await getPost(id);
-			const decodedContent = decode(posts.contentHTML);
-			posts.contentHTML = decodedContent;
-			console.log(posts);
+			const post = await getPost(id);
 
-			setPost(posts);
-			console.log(posts);
+			const decodedContent = decode(post.contentHTML);
+			post.contentHTML = decodedContent;
+
+			console.log(post);
+			setPost(post);
+
+			const formatted = formatDate(post.publishedAt);
+			setFormattedDate(formatted);
 		};
+
 		fetchData();
 	}, [getPost, id]);
 
@@ -29,6 +35,7 @@ const Blog = ({ getPost }) => {
 					<div className={styles.container}>
 						<article className={styles.blog}>
 							<h1>{post.title}</h1>
+							<p>{formattedDate}</p>
 							<div dangerouslySetInnerHTML={{ __html: post.contentHTML }}></div>
 						</article>
 					</div>

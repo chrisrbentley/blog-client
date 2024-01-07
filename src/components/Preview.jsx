@@ -3,6 +3,7 @@ import { decode } from 'html-entities';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Preview.module.css';
+import formatDate from '../util/formatDate';
 
 const Preview = ({ post }) => {
 	const [preview, setPreview] = useState(null);
@@ -24,15 +25,10 @@ const Preview = ({ post }) => {
 		setPreview(truncatedContent);
 	};
 
-	const formatDate = (date) => {
-		const formatted = new Date(date).toLocaleDateString('en-US');
-		console.log(formatted);
-		setFormattedDate(formatted);
-	};
-
 	useEffect(() => {
 		getContentPreview(post.contentHTML);
-		formatDate(post.publishedAt);
+		const formatted = formatDate(post.publishedAt);
+		setFormattedDate(formatted);
 	}, [post.contentHTML, post.publishedAt]);
 
 	return (
