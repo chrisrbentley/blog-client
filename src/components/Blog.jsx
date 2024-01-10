@@ -4,6 +4,9 @@ import { decode } from 'html-entities';
 import ReactLoading from 'react-loading';
 import styles from './Blog.module.css';
 import formatDate from '../util/formatDate';
+import CommentSection from './CommentSection';
+import getComments from '../api/getComments';
+import postComment from '../api/postComment';
 
 // eslint-disable-next-line react/prop-types
 const Blog = ({ getPost }) => {
@@ -39,6 +42,11 @@ const Blog = ({ getPost }) => {
 							<div dangerouslySetInnerHTML={{ __html: post.contentHTML }}></div>
 						</article>
 					</div>
+					<CommentSection
+						getComments={getComments}
+						postComment={postComment}
+						id={id}
+					/>
 				</main>
 			) : (
 				<div className={styles.loadingContainer}>
