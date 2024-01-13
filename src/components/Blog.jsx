@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { decode } from 'html-entities';
 import ReactLoading from 'react-loading';
 import styles from './Blog.module.css';
-import formatDate from '../util/formatDate';
-import CommentSection from './CommentSection';
 import getComments from '../api/getComments';
 import postComment from '../api/postComment';
+import Comment from './Comment';
+import Form from './Form';
 
 // eslint-disable-next-line react/prop-types
 const Blog = ({ getPost }) => {
 	const { id } = useParams();
 	const [post, setPost] = useState(null);
-	const [formattedDate, setFormattedDate] = useState('');
+	const [loading, setLoading] = useState(false);
+	const [comments, setComments] = useState(null);
+	const formRef = useRef(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -20,16 +22,37 @@ const Blog = ({ getPost }) => {
 
 			const decodedContent = decode(post.contentHTML);
 			post.contentHTML = decodedContent;
-
-			console.log(post);
 			setPost(post);
 
-			const formatted = formatDate(post.publishedAt);
-			setFormattedDate(formatted);
+			const comments = await getComments(id);
+			setComments(comments);
 		};
 
 		fetchData();
 	}, [getPost, id]);
+
+	const handleForm = async (e) => {
+		e.preventDefault();
+		const authorValue = formRef.current.getAuthorValue();
+		const messageValue = formRef.current.getMessageValue();
+		console.log(authorValue, messageValue);
+
+		try {
+			setLoading(true);
+			const { success } = await postComment(id, authorValue, messageValue);
+
+			if (!success) {
+				return console.error('Could not post comment.');
+			}
+
+			const comments = await getComments(id);
+			setComments(comments);
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	return (
 		<>
@@ -38,15 +61,39 @@ const Blog = ({ getPost }) => {
 					<div className={styles.container}>
 						<article className={styles.blog}>
 							<h1>{post.title}</h1>
-							<p>{formattedDate}</p>
+							<p>{post.publishedAt}</p>
 							<div dangerouslySetInnerHTML={{ __html: post.contentHTML }}></div>
 						</article>
+						<Form
+							handleForm={handleForm}
+							ref={formRef}
+							loading={loading}
+						/>
+						<section className={styles.commentsContainer}>
+							{loading && (
+								<ReactLoading
+									type={'spinningBubbles'}
+									color={'#000000'}
+									height={'5%'}
+									width={'5%'}
+									className={styles.loader}
+								/>
+							)}
+							{comments &&
+								(comments.message ? (
+									<p>{comments.message}</p>
+								) : (
+									comments.map((comment) => {
+										return (
+											<Comment
+												key={comment._id}
+												comment={comment}
+											/>
+										);
+									})
+								))}
+						</section>
 					</div>
-					<CommentSection
-						getComments={getComments}
-						postComment={postComment}
-						id={id}
-					/>
 				</main>
 			) : (
 				<div className={styles.loadingContainer}>

@@ -1,3 +1,5 @@
+import formatDate from '../util/formatDate';
+
 const getPosts = async () => {
 	try {
 		const response = await fetch(
@@ -32,7 +34,11 @@ const getPost = async (id) => {
 
 		if (!response.ok) return { message: 'Could not fetch posts' };
 
-		return response.json();
+		const post = await response.json();
+		post.publishedAt = formatDate(post.publishedAt);
+		return post;
+		/* const formattedDate = formatDate(post.publishedAt)
+		return response.json(); */
 	} catch (error) {
 		console.log(error);
 	}

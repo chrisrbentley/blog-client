@@ -1,0 +1,23 @@
+.comment {
+	margin-top: 20px;
+}
+
+.commentTop {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: baseline;
+}
+
+.commentTop > p {
+	margin: 0;
+}
+
+.comment > p {
+	margin: 0;
+	color: #555555;
+}
+
+.date {
+	font-size: 14px;
+	color: #555555;
+}

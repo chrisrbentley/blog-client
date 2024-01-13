@@ -29,11 +29,21 @@ h1 {
 	color: #555;
 }
 
+.commentsContainer {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
 .loadingContainer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
+}
+
+.loader {
+	margin: 0 auto;
+	padding-top: 20px;
 }
 
 @media only screen and (max-width: 600px) {
