@@ -35,7 +35,6 @@ const Blog = ({ getPost }) => {
 		e.preventDefault();
 		const authorValue = formRef.current.getAuthorValue();
 		const messageValue = formRef.current.getMessageValue();
-		console.log(authorValue, messageValue);
 
 		try {
 			setLoading(true);
