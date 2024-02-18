@@ -14,6 +14,7 @@ const Blog = ({ getPost }) => {
 	const [post, setPost] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [comments, setComments] = useState(null);
+	const [characterCount, setCharacterCount] = useState(150);
 	const formRef = useRef(null);
 
 	useEffect(() => {
@@ -54,6 +55,7 @@ const Blog = ({ getPost }) => {
 		} finally {
 			formRef.current.clearFields();
 			setLoading(false);
+			setCharacterCount(150);
 		}
 	};
 
@@ -71,6 +73,8 @@ const Blog = ({ getPost }) => {
 							handleForm={handleForm}
 							ref={formRef}
 							loading={loading}
+							characterCount={characterCount}
+							setCharacterCount={setCharacterCount}
 						/>
 						<section className={styles.commentsContainer}>
 							{loading && (

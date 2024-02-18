@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
-import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import styles from './Form.module.css';
 
-const Form = forwardRef(function Form({ handleForm }, ref) {
-	const [characterCount, setCharacterCount] = useState(150);
-
+const Form = forwardRef(function Form(
+	{ handleForm, characterCount, setCharacterCount },
+	ref,
+) {
 	const author = useRef(null);
 	const message = useRef(null);
 
