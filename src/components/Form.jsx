@@ -11,6 +11,10 @@ const Form = forwardRef(function Form({ handleForm }, ref) {
 	useImperativeHandle(ref, () => ({
 		getAuthorValue: () => author.current.value,
 		getMessageValue: () => message.current.value,
+		clearFields: () => {
+			author.current.value = '';
+			message.current.value = '';
+		},
 	}));
 
 	const handleCount = () => {

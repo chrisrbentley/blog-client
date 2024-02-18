@@ -52,6 +52,7 @@ const Blog = ({ getPost }) => {
 		} catch (error) {
 			console.error(error);
 		} finally {
+			formRef.current.clearFields();
 			setLoading(false);
 		}
 	};
