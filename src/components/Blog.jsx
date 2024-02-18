@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { decode } from 'html-entities';
 import ReactLoading from 'react-loading';
 import styles from './Blog.module.css';
 import getComments from '../api/getComments';
 import postComment from '../api/postComment';
 import Comment from './Comment';
 import Form from './Form';
+import { decode } from 'he';
 
 // eslint-disable-next-line react/prop-types
 const Blog = ({ getPost }) => {
@@ -19,12 +19,15 @@ const Blog = ({ getPost }) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			const post = await getPost(id);
+			console.log(post);
 
 			const decodedContent = decode(post.contentHTML);
+
 			post.contentHTML = decodedContent;
 			setPost(post);
 
 			const comments = await getComments(id);
+
 			setComments(comments);
 		};
 

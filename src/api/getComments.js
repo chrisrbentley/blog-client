@@ -1,4 +1,5 @@
 import formatDate from '../util/formatDate';
+import { unescape } from 'he';
 
 const getComments = async (id) => {
 	try {
@@ -17,6 +18,8 @@ const getComments = async (id) => {
 
 		const comments = await response.json();
 		for (const comment of comments) {
+			comment.author = unescape(comment.author);
+			comment.message = unescape(comment.message);
 			const formattedDate = formatDate(comment.createdAt);
 			comment.createdAt = formattedDate;
 		}

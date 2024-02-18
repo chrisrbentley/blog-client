@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { decode } from 'html-entities';
+import { decode } from 'he';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Preview.module.css';
